@@ -1,0 +1,77 @@
+{
+  "version": "1.0",
+  "name": "MCP Configuration",
+  "description": "Model Context Protocol configuration for external tools",
+  "servers": {
+    "github": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "${POSTGRES_CONNECTION_STRING}"
+      }
+    },
+    "slack": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}"
+      }
+    },
+    "jira": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-jira"],
+      "env": {
+        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}",
+        "JIRA_BASE_URL": "${JIRA_BASE_URL}"
+      }
+    },
+    "notion": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-notion"],
+      "env": {
+        "NOTION_API_KEY": "${NOTION_API_KEY}"
+      }
+    }
+  },
+  "integrations": {
+    "event-driven": {
+      "kafka": {
+        "server": "kafka-mcp-server",
+        "config": {
+          "bootstrapServers": "${KAFKA_BOOTSTRAP_SERVERS}"
+        }
+      }
+    },
+    "monitoring": {
+      "grafana": {
+        "server": "grafana-mcp-server",
+        "config": {
+          "grafanaUrl": "${GRAFANA_URL}",
+          "apiKey": "${GRAFANA_API_KEY}"
+        }
+      }
+    },
+    "data": {
+      "bigquery": {
+        "server": "bigquery-mcp-server",
+        "config": {
+          "projectId": "${GCP_PROJECT_ID}",
+          "credentials": "${GCP_CREDENTIALS}"
+        }
+      }
+    }
+  },
+  "settings": {
+    "autoStart": true,
+    "healthCheck": true,
+    "timeout": 30000,
+    "retryAttempts": 3
+  }
+}

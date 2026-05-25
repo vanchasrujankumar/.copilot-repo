@@ -1,0 +1,56 @@
+# Prevent secrets from being committed
+.env filter=git-crypt diff=git-crypt
+*.env filter=git-crypt diff=git-crypt
+*.local.* filter=git-crypt diff=git-crypt
+secrets/** filter=git-crypt diff=git-crypt
+keys/** filter=git-crypt diff=git-crypt
+credentials/** filter=git-crypt diff=git-crypt
+
+# Prevent sensitive configs
+application*.yml filter=git-crypt diff=git-crypt
+application*.yaml filter=git-crypt diff=git-crypt
+application*.properties filter=git-crypt diff=git-crypt
+application*.json filter=git-crypt diff=git-crypt
+application*.xml filter=git-crypt diff=git-crypt
+application*.uml filter=git-crypt diff=git-crypt
+
+# Binary files
+*.pem binary
+*.crt binary
+*.key binary
+*.p12 binary
+*.pfx binary
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+
+# Knowledge base - sensitive
+.copilot-knowledge/** filter=git-crypt diff=git-crypt
+*.knowledge.json filter=git-crypt diff=git-crypt
+
+# Text files
+*.md text
+*.txt text
+*.json text
+*.yml text
+*.yaml text
+*.xml text
+*.ts text
+*.js text
+*.html text
+*.css text
+*.scss text
+*.less text
+
+# Line endings
+*.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ts text eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.less text eol=lf

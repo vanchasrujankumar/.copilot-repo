@@ -1,0 +1,64 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: check-ast
+      - id: check-byte-order-marker
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-vcs-permalinks
+      - id: check-xml
+      - id: check-yaml
+      - id: debug-statements
+      - id: destroyed-symlinks
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+      - id: trailing-whitespace
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: package-lock.json|yarn.lock
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.5.0
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+
+  - repo: local
+    hooks:
+      - id: check-env-files
+        name: Check for .env files
+        entry: bash -c 'if git diff --cached --name-only | grep -E "\.env$|\.env\."; then echo "ERROR: .env files detected in commit"; exit 1; fi'
+        language: system
+        stages: [pre-commit]
+
+      - id: check-local-configs
+        name: Check for local configs
+        entry: bash -c 'if git diff --cached --name-only | grep -E "application.*\.local\.|config/.*\.local\."; then echo "ERROR: Local config files detected in commit"; exit 1; fi'
+        language: system
+        stages: [pre-commit]
+
+      - id: check-uml-files
+        name: Check for UML files
+        entry: bash -c 'if git diff --cached --name-only | grep -E "\.uml$"; then echo "ERROR: UML files detected in commit"; exit 1; fi'
+        language: system
+        stages: [pre-commit]
+
+      - id: check-secrets-directory
+        name: Check for secrets directory
+        entry: bash -c 'if git diff --cached --name-only | grep -E "^secrets/|^credentials/|^keys/"; then echo "ERROR: Secrets directory detected in commit"; exit 1; fi'
+        language: system
+        stages: [pre-commit]

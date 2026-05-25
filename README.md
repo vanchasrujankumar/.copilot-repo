@@ -1,67 +1,171 @@
 # Global Copilot Repository
 
-This repository contains skills and agents for AI-assisted development with GitHub Copilot.
+Professional multi-agent, self-learning system for GitHub Copilot with TDD, 100% test coverage, and zero lint issues.
 
-## Multi-Agent & Self-Learning Approach
+## Features
 
-### Multi-Agent System
-- **Orchestrator**: Coordinates multiple specialized agents
-- **Specialist Agents**: Domain experts (Full Stack, Java, DevOps, Security, Data, QA)
-- **Aggregator**: Combines results from multiple agents
-- **Self-Learning**: Continuously improves from interactions
+### 🏗️ Professional Standards
+- **Scalable Design**: Modular, stateless agents
+- **TDD Approach**: Red-Green-Refactor cycle
+- **100% Test Coverage**: All code paths tested
+- **Zero Lint Issues**: Strict code quality standards
+- **Clean Code**: SOLID principles, DRY, KISS
 
-### Self-Learning Model
-- **Experience Learning**: Learn from successful patterns
-- **Context Learning**: Adapt to project context
-- **Performance Learning**: Optimize responses
-- **Feedback Loop**: Improve based on user feedback
+### 🤖 Multi-Agent System
+- **Orchestrator**: Coordinates multiple agents
+- **Specialist Agents**: Full Stack, Java, DevOps, Security, Data, QA
+- **Self-Learning**: Continuous improvement from interactions
+- **Knowledge Base**: Pattern storage and reuse
 
-## Structure
+### 🔌 MCP Integration
+- **GitHub, PostgreSQL, Slack, Jira, Notion**
+- **Kafka, Grafana, BigQuery**
+- **Extensible**: Add custom MCP servers
+- **Secure**: Environment variables, no secrets in code
 
-- **skills/** - Reusable skills for different technologies
-- **agents/** - Multi-agent system with self-learning capabilities
-- **workspace/** - Clone your repos here to use these skills
+### 🛡️ Security
+- **No secrets in repository**
+- **Protected configs** (application*.local.*, .env)
+- **Pre-commit hooks** for security checks
+- **git-crypt** for sensitive files
 
-## Available Skills
+## Quick Start
 
-### Core Technologies
-- Event-driven systems
-- Java microservices
-- MongoDB
-- Kafka
-- Grafana
-- Vela
-- Spark, Scala, Hive, BigQuery
-- Shell, Python, Node.js, npm, JavaScript
-- Playwright (testing)
+### 1. Clone Repository
+```bash
+git clone https://github.com/your-username/copilot-repo.git
+cd copilot-repo
+```
 
-## Available Agents
+### 2. Install Dependencies
+```bash
+npm install
+npm run prepare  # Setup git hooks
+```
 
-### Multi-Agent System
-- **multi-agent-orchestrator** - Coordinates multiple agents
-- **self-learning-agent** - Continuously learns and improves
+### 3. Configure Environment
+```bash
+cp .env.example .env
+# Edit .env with your credentials
+```
 
-### Role-Specific Agents
-- Full Stack Engineer
-- Java Architect
-- DevOps Engineer
-- Security Engineer
-- Data Engineer
-- QA Tester
+### 4. Setup MCP Servers
+```bash
+# Install MCP servers
+npm install -g @modelcontextprotocol/server-github
+npm install -g @modelcontextprotocol/server-postgres
+# ... other servers
+
+# Start MCP
+npm run mcp:start
+```
+
+### 5. Clone Your Projects
+```bash
+cd workspace
+git clone <your-project-url>
+```
 
 ## Usage
 
-1. Clone your repos to the `workspace/` directory
-2. Configure Copilot to use skills from this repo
-3. Use multi-agent approach for complex tasks
-4. Enable self-learning for continuous improvement
+### With GitHub Copilot
+1. Open your project in `workspace/`
+2. Copilot will use skills and agents
+3. Multi-agent orchestration for complex tasks
+4. Self-learning improves over time
 
-## Data-Driven & Test-Driven Approach
+### Development Workflow
+```bash
+# Write tests first (TDD)
+npm test
 
-All skills and agents follow:
-- **Data-driven**: Based on real-world patterns and best practices
-- **Test-driven**: Emphasize TDD/BDD with comprehensive test coverage
+# Check code quality
+npm run lint:check
+npm run format:check
+npm run type-check
 
-## Configuration
+# Commit with conventional commits
+git commit -m "feat: add new agent"
+```
 
-See `.copilot-config.json` for multi-agent and self-learning settings.
+## Architecture
+
+### Skills Directory
+- **event-driven-systems.md**: Kafka, EventBridge
+- **java-microservices.md**: Spring Boot, patterns
+- **mongodb.md**: Database design, queries
+- **kafka.md**: Streaming, producers, consumers
+- **grafana.md**: Monitoring, dashboards
+- **vela.md**: Open Application Model
+- **spark-scala-hive-bigquery.md**: Big data processing
+- **shell-python-nodejs.md**: Scripting, development
+- **playwright.md**: E2E testing
+
+### Agents Directory
+- **multi-agent-orchestrator.md**: Coordinates agents
+- **self-learning-agent.md**: Continuous improvement
+- **full-stack-engineer.md**: Web development
+- **java-architect.md**: Enterprise architecture
+- **devops-engineer.md**: CI/CD, infrastructure
+- **security-engineer.md**: Security practices
+- **data-engineer.md**: Data pipelines
+- **qa-tester.md**: Testing strategies
+- **professional-agent-standards.md**: Quality standards
+
+## Security
+
+### Never Commit
+- `.env` files
+- `application*.local.*` files
+- Certificate files (`.pem`, `.crt`, `.key`)
+- Database files (`.db`, `.sqlite`)
+- API keys, tokens, passwords
+
+### Use
+- Environment variables
+- `.env.example` template
+- git-crypt for sensitive files
+- Pre-commit hooks
+
+## Testing
+
+### Requirements
+- 100% test coverage
+- Fast test execution
+- Independent tests
+- Realistic test data
+
+### Commands
+```bash
+# Run all tests
+npm test
+
+# Run specific tests
+npm run agent:test
+npm run skill:test
+
+# Watch mode
+npm run test:watch
+
+# CI mode
+npm run test:ci
+```
+
+## Contributing
+
+1. Fork repository
+2. Create feature branch
+3. Write tests first (TDD)
+4. Implement feature
+5. Run all checks
+6. Submit pull request
+
+## Support
+
+- **Issues**: GitHub Issues
+- **Security**: security@example.com
+- **Documentation**: README files
+
+## License
+
+MIT License - see LICENSE file
