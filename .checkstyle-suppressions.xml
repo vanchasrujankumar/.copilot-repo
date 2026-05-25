@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+    "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+    "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+  <!-- Test files -->
+  <suppress files=".*Test\.java" checks=".*"/>
+  <suppress files=".*Spec\.java" checks=".*"/>
+  <suppress files=".*IT\.java" checks=".*"/>
+  <suppress files=".*E2E\.java" checks=".*"/>
+  
+  <!-- Generated code -->
+  <suppress files=".*/generated/.*" checks=".*"/>
+  <suppress files=".*/target/.*" checks=".*"/>
+  <suppress files=".*/build/.*" checks=".*"/>
+  
+  <!-- Configuration files -->
+  <suppress files=".*/config/.*" checks=".*"/>
+  <suppress files=".*/resources/.*" checks=".*"/>
+  
+  <!-- Third-party code -->
+  <suppress files=".*/vendor/.*" checks=".*"/>
+  <suppress files=".*/lib/.*" checks=".*"/>
+  
+  <!-- Specific rule suppressions -->
+  <suppress files=".*" checks="MagicNumber"/>
+  <suppress files=".*" checks="MethodLength"/>
+  <suppress files=".*" checks="ParameterNumber"/>
+  <suppress files=".*" checks="CyclomaticComplexity"/>
+  
+  <!-- Package-info files -->
+  <suppress files="package-info\.java" checks=".*"/>
+  
+  <!-- Main method -->
+  <suppress files=".*" checks="HideUtilityClassConstructor"/>
+  
+  <!-- Javadoc for overrides -->
+  <suppress files=".*" checks="JavadocMethod"/>
+  <suppress files=".*" checks="JavadocType"/>
+  <suppress files=".*" checks="JavadocVariable"/>
+  <suppress files=".*" checks="JavadocPackage"/>
+</suppressions>
