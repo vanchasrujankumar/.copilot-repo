@@ -1,0 +1,225 @@
+# SonarQube Plugin Configuration
+# Integration with SonarQube for code quality analysis
+
+sonarqube:
+  enabled: true
+  server_url: "${SONARQUBE_URL}"
+  token: "${SONARQUBE_TOKEN}"
+  
+  # Project configuration
+  project:
+    key: "global-copilot-repo"
+    name: "Global Copilot Repository"
+    version: "1.0.0"
+  
+  # Quality Gates
+  quality_gate:
+    name: "Professional Standards"
+    conditions:
+      - metric: "coverage"
+        operator: "GREATER_THAN"
+        value: "100"
+      - metric: "duplicated_lines_density"
+        operator: "LESS_THAN"
+        value: "3"
+      - metric: "security_rating"
+        operator: "GREATER_THAN"
+        value: "1"
+      - metric: "reliability_rating"
+        operator: "GREATER_THAN"
+        value: "1"
+      - metric: "maintainability_rating"
+        operator: "GREATER_THAN"
+        value: "1"
+      - metric: "code_smells"
+        operator: "LESS_THAN"
+        value: "0"
+      - metric: "bugs"
+        operator: "LESS_THAN"
+        value: "0"
+      - metric: "vulnerabilities"
+        operator: "LESS_THAN"
+        value: "0"
+  
+  # Analysis configuration
+  analysis:
+    sources: ["agents", "skills", "workspace"]
+    exclusions:
+      - "**/node_modules/**"
+      - "**/target/**"
+      - "**/build/**"
+      - "**/dist/**"
+      - "**/.git/**"
+      - "**/.github/**"
+      - "**/.copilot-knowledge/**"
+    
+    # Language specific settings
+    java:
+      source: "1.8"
+      target: "1.8"
+      encoding: "UTF-8"
+    
+    javascript:
+      source: "ES2022"
+      ecmaVersion: "2022"
+    
+    typescript:
+      source: "ES2022"
+      ecmaVersion: "2022"
+    
+    python:
+      version: "3.9"
+    
+    # Test configuration
+    tests:
+      inclusions: ["**/*.test.ts", "**/*.spec.ts", "**/*Test.java", "**/*Spec.java"]
+      reports:
+        junit: "test-results/junit.xml"
+        coverage:
+          jacoco: "coverage/jacoco.xml"
+          lcov: "coverage/lcov.info"
+  
+  # Rules configuration
+  rules:
+    # Security rules
+    security:
+      - "java:S3649"
+      - "java:S2259"
+      - "java:S2077"
+      - "java:S2083"
+      - "java:S5131"
+      - "javascript:S3649"
+      - "typescript:S3649"
+      - "python:S3649"
+    
+    # Performance rules
+    performance:
+      - "java:S2274"
+      - "java:S2275"
+      - "java:S2276"
+      - "java:S2277"
+      - "java:S2278"
+      - "javascript:S2274"
+      - "typescript:S2274"
+      - "python:S2274"
+    
+    # Code quality rules
+    code_quality:
+      - "java:S117"
+      - "java:S106"
+      - "java:S00100"
+      - "java:S00101"
+      - "java:S00102"
+      - "javascript:S117"
+      - "typescript:S117"
+      - "python:S117"
+    
+    # Custom rules for our stack
+    custom:
+      event_driven:
+        - "Check for idempotent event processing"
+        - "Validate dead letter queue configuration"
+        - "Check event versioning strategies"
+      
+      java_microservices:
+        - "Spring Boot best practices"
+        - "Circuit breaker patterns"
+        - "API versioning strategies"
+      
+      mongodb:
+        - "Query optimization patterns"
+        - "Schema design validation"
+        - "Transaction handling"
+      
+      kafka:
+        - "Producer/consumer configurations"
+        - "Consumer group management"
+        - "Topic partitioning strategies"
+  
+  # Integration with agents
+  agent_integration:
+    orchestrator:
+      enabled: true
+      on_failure: "route_to_security_engineer"
+      on_warning: "route_to_java_architect"
+    
+    security_engineer:
+      enabled: true
+      focus: ["security", "vulnerabilities"]
+    
+    java_architect:
+      enabled: true
+      focus: ["performance", "code_quality", "maintainability"]
+    
+    qa_tester:
+      enabled: true
+      focus: ["coverage", "tests", "reliability"]
+  
+  # Self-learning integration
+  self_learning:
+    enabled: true
+    store_patterns: true
+    knowledge_base: ".copilot-knowledge/sonarqube-patterns/"
+    metrics:
+      - "common_issues"
+      - "successful_fixes"
+      - "performance_improvements"
+      - "security_improvements"
+  
+  # GitHub integration
+  github:
+    enabled: true
+    pull_request:
+      comments: true
+      status_check: true
+      quality_gate: true
+    actions:
+      workflow: ".github/workflows/sonarqube.yml"
+      on_push: true
+      on_pull_request: true
+      scheduled: "0 0 * * *"  # Daily at midnight
+  
+  # Notifications
+  notifications:
+    slack:
+      enabled: true
+      webhook: "${SLACK_WEBHOOK}"
+      channels: ["#code-quality", "#security-alerts"]
+    
+    email:
+      enabled: true
+      recipients: ["team@example.com"]
+      on_failure: true
+      on_success: false
+    
+    webhook:
+      enabled: true
+      url: "${WEBHOOK_URL}"
+      events: ["analysis_completed", "quality_gate_failed", "new_issue"]
+  
+  # Metrics and reporting
+  metrics:
+    dashboard: true
+    reports:
+      - "html"
+      - "json"
+      - "pdf"
+    storage: "reports/sonarqube/"
+    retention_days: 90
+  
+  # Advanced settings
+  advanced:
+    scanner:
+      memory: "4096m"
+      timeout: 300
+      verbose: true
+    
+    analysis:
+      incremental: true
+      preview: false
+      debug: false
+    
+    cache:
+      enabled: true
+      directory: ".sonar/cache"
+      cleanup: true

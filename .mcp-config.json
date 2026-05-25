@@ -1,8 +1,15 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "name": "MCP Configuration",
-  "description": "Model Context Protocol configuration for external tools",
+  "description": "Model Context Protocol configuration for external tools including Sequential Thinking",
   "servers": {
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "env": {
+        "DISABLE_THOUGHT_LOGGING": "false"
+      }
+    },
     "github": {
       "command": "npx",
       "args": ["@modelcontextprotocol/server-github"],
@@ -72,6 +79,12 @@
     "autoStart": true,
     "healthCheck": true,
     "timeout": 30000,
-    "retryAttempts": 3
+    "retryAttempts": 3,
+    "sequentialThinking": {
+      "enabled": true,
+      "maxThoughts": 20,
+      "enableRevision": true,
+      "enableBranching": true
+    }
   }
 }

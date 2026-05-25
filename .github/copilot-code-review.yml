@@ -1,0 +1,151 @@
+# Copilot Code Review Configuration
+# Custom instructions for GitHub Copilot Code Review
+
+code_review:
+  enabled: true
+  auto_review: true
+  required_checks:
+    - security
+    - performance
+    - testing
+    - documentation
+    - code_quality
+  
+  # Custom instructions for our technology stack
+  custom_instructions: |
+    Focus on these technology-specific considerations:
+    
+    ## Event-Driven Systems
+    - Check for idempotent event processing
+    - Verify dead letter queue configuration
+    - Validate event versioning strategies
+    - Review retry mechanisms with exponential backoff
+    - Check for proper correlation IDs in events
+    
+    ## Java Microservices
+    - Apply Spring Boot best practices
+    - Verify circuit breaker patterns (Resilience4j)
+    - Check API versioning strategies
+    - Validate health check implementations
+    - Review database transaction handling
+    
+    ## MongoDB
+    - Optimize query patterns with proper indexing
+    - Validate schema design (embedding vs referencing)
+    - Check aggregation pipeline efficiency
+    - Review transaction ACID compliance
+    - Verify connection pooling configuration
+    
+    ## Kafka
+    - Validate producer/consumer configurations
+    - Check consumer group management
+    - Review topic partitioning strategies
+    - Verify message serialization/deserialization
+    - Check for proper error handling in streams
+    
+    ## TDD & Quality Standards
+    - Enforce 100% test coverage requirement
+    - Check for meaningful test names and assertions
+    - Validate test isolation and independence
+    - Review test data quality and realism
+    - Check for performance and integration tests
+    
+    ## Security
+    - Validate input sanitization and validation
+    - Check for proper authentication/authorization
+    - Review secret management practices
+    - Verify encryption for sensitive data
+    - Check for common vulnerabilities (OWASP Top 10)
+    
+    ## Performance
+    - Optimize algorithm time/space complexity
+    - Check for memory leaks and efficient resource usage
+    - Validate database query performance
+    - Review caching strategies
+    - Check for proper connection pooling
+    
+    ## Documentation
+    - Verify code comments explain "why" not "what"
+    - Check for API documentation (OpenAPI/Swagger)
+    - Review README completeness
+    - Validate architecture decision records (ADRs)
+    - Check for inline documentation of complex logic
+  
+  # Review categories with weights
+  categories:
+    security:
+      weight: 30
+      required: true
+    performance:
+      weight: 25
+      required: true
+    testing:
+      weight: 20
+      required: true
+    code_quality:
+      weight: 15
+      required: true
+    documentation:
+      weight: 10
+      required: false
+  
+  # Thresholds for approval
+  approval_threshold: 80  # Minimum score for auto-approval
+  blocking_threshold: 50   # Score below which review blocks merge
+  
+  # File type specific rules
+  file_types:
+    java:
+      checkstyle_config: ".checkstyle.xml"
+      required_checks: ["security", "performance", "testing"]
+    python:
+      pylint_config: ".pylintrc"
+      required_checks: ["security", "testing"]
+    javascript:
+      eslint_config: ".eslintrc.json"
+      required_checks: ["security", "code_quality"]
+    typescript:
+      eslint_config: ".eslintrc.json"
+      required_checks: ["security", "code_quality", "testing"]
+  
+  # Exclusions
+  exclude:
+    paths:
+      - "node_modules/"
+      - "target/"
+      - "build/"
+      - "dist/"
+      - ".git/"
+      - ".github/"
+    patterns:
+      - "*.min.js"
+      - "*.min.css"
+      - "*.bundle.js"
+      - "package-lock.json"
+      - "yarn.lock"
+  
+  # Integration settings
+  integration:
+    github_actions: true
+    vs_code: true
+    cli: true
+    api: true
+  
+  # Notification settings
+  notifications:
+    on_failure: true
+    on_approval: false
+    on_block: true
+    channels:
+      - slack
+      - email
+  
+  # Metrics collection
+  metrics:
+    enabled: true
+    collect:
+      - review_time
+      - issue_count
+      - false_positives
+      - developer_feedback
+    storage: "knowledge-base/metrics/"
