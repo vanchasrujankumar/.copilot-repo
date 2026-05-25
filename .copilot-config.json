@@ -1,7 +1,7 @@
 {
-  "version": "1.0",
+  "version": "2.0",
   "name": "Global Copilot Configuration",
-  "description": "Configuration for Copilot with skills and agents",
+  "description": "Multi-agent, self-learning Copilot configuration",
   "skills": [
     "skills/event-driven-systems.md",
     "skills/java-microservices.md",
@@ -27,6 +27,18 @@
     "testDriven": true,
     "defaultAgent": "full-stack-engineer",
     "enableSkills": true,
-    "enableAgents": true
+    "enableAgents": true,
+    "multiAgent": true,
+    "selfLearning": true,
+    "agentOrchestration": {
+      "mode": "cooperative",
+      "routingStrategy": "context-aware",
+      "fallbackAgent": "full-stack-engineer"
+    },
+    "learning": {
+      "autoCapture": true,
+      "feedbackLoop": true,
+      "knowledgeBase": "workspace/.copilot-knowledge"
+    }
   }
 }

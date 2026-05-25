@@ -37,3 +37,7 @@ coverage/
 tmp/
 temp/
 *.tmp
+
+# Knowledge base - may contain sensitive data
+.copilot-knowledge/
+*.knowledge.json
