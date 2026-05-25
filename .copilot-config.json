@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "name": "Global Copilot Configuration",
+  "description": "Configuration for Copilot with skills and agents",
+  "skills": [
+    "skills/event-driven-systems.md",
+    "skills/java-microservices.md",
+    "skills/mongodb.md",
+    "skills/kafka.md",
+    "skills/grafana.md",
+    "skills/vela.md",
+    "skills/spark-scala-hive-bigquery.md",
+    "skills/shell-python-nodejs.md",
+    "skills/playwright.md"
+  ],
+  "agents": [
+    "agents/full-stack-engineer.md",
+    "agents/java-architect.md",
+    "agents/devops-engineer.md",
+    "agents/security-engineer.md",
+    "agents/data-engineer.md",
+    "agents/qa-tester.md"
+  ],
+  "workspace": "workspace",
+  "settings": {
+    "dataDriven": true,
+    "testDriven": true,
+    "defaultAgent": "full-stack-engineer",
+    "enableSkills": true,
+    "enableAgents": true
+  }
+}
